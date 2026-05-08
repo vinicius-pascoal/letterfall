@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { DifficultyPreset, DifficultyKey } from "./letterfall-game/types";
 
 type LetterfallHomeProps = {
@@ -25,12 +26,14 @@ export function LetterfallHome({
 
       <div className="relative mx-auto w-full max-w-2xl px-6 py-20">
         <header className="text-center">
-          <h1 className="font-(family-name:--font-orbitron) text-5xl font-semibold tracking-[0.12em] text-(--cyan)">
-            LETTERFALL
-          </h1>
-          <p className="mt-4 text-sm text-slate-300">
-            Digite as palavras que caem antes que atinjam o chão.
-          </p>
+          <Image
+            src="/imgs/titulo.png"
+            alt="Letterfall"
+            width={360}
+            height={120}
+            priority
+            className="mx-auto h-auto w-60 sm:w-80"
+          />
         </header>
 
         <section className="mt-10 grid gap-3 rounded-3xl border border-[rgba(148,163,184,0.12)] bg-[rgba(2,6,23,0.34)] p-4 backdrop-blur-md">

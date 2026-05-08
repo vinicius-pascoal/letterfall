@@ -29,7 +29,7 @@ export function GamePlayfield({
   onExitHome,
 }: GamePlayfieldProps) {
   return (
-    <div className="absolute inset-0 overflow-hidden rounded-3xl border border-[rgba(148,163,184,0.12)] bg-cover bg-center" style={{ backgroundImage: "url('/imgs/fundoGame.png')" }}>
+    <div className="absolute inset-0 overflow-hidden border border-[rgba(148,163,184,0.12)] bg-cover bg-center" style={{ backgroundImage: "url('/imgs/fundoGame.png')" }}>
       {words.map((word) => (
         <div
           key={word.id}
