@@ -65,7 +65,7 @@ export default function LetterfallGame({ difficultyKey, onExitHome }: Letterfall
               paused={paused}
               bestScore={bestScore}
               score={score}
-              onRestart={resetGame}
+              onRestart={onExitHome}
               onExitHome={onExitHome}
             />
           </div>
@@ -76,7 +76,7 @@ export default function LetterfallGame({ difficultyKey, onExitHome }: Letterfall
             inputRef={inputRef}
             onInputChange={setInput}
             onSubmit={submitWord}
-            onRestart={resetGame}
+            onRestart={onExitHome}
           />
         </section>
       </div>

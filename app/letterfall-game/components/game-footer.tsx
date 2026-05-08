@@ -61,7 +61,7 @@ export function GameFooter({
               onClick={onRestart}
               className="rounded-2xl border border-[rgba(148,163,184,0.18)] px-5 py-4 text-sm font-semibold tracking-[0.18em] text-slate-200 transition hover:border-[rgba(250,204,21,0.45)] hover:bg-[rgba(250,204,21,0.08)]"
             >
-              Reiniciar
+              Home
             </button>
           </div>
         </form>
