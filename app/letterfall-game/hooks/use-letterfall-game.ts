@@ -46,9 +46,9 @@ export function useLetterfallGame({ difficultyKey }: UseLetterfallGameParams) {
   const difficulty = DIFFICULTIES.find((item) => item.key === difficultyKey) ?? DIFFICULTIES[1];
 
   const [words, setWords] = useState<FallingWord[]>(() => createStartingWords(difficulty.speedMultiplier));
-  const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(difficulty.startingLives);
-  const [combo, setCombo] = useState(0);
+  const [score, setScore] = useState<number>(0);
+  const [lives, setLives] = useState<number>(difficulty.startingLives);
+  const [combo, setCombo] = useState<number>(0);
   const [input, setInput] = useState("");
   const [paused, setPaused] = useState(false);
   const [gameOver, setGameOver] = useState(false);
@@ -56,14 +56,14 @@ export function useLetterfallGame({ difficultyKey }: UseLetterfallGameParams) {
     tone: "neutral",
     message: STATUS_MESSAGES.idle,
   });
-  const [bestScore, setBestScore] = useState(0);
+  const [bestScore, setBestScore] = useState<number>(0);
 
   const wordsRef = useRef(words);
-  const scoreRef = useRef(score);
-  const livesRef = useRef(lives);
-  const comboRef = useRef(combo);
+  const scoreRef = useRef<number>(score);
+  const livesRef = useRef<number>(lives);
+  const comboRef = useRef<number>(combo);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const spawnTimerRef = useRef(0);
+  const spawnTimerRef = useRef<number>(0);
   const lastTickRef = useRef<number | null>(null);
 
   useEffect(() => {
