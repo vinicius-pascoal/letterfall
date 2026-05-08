@@ -1,5 +1,5 @@
-import LetterfallGame from "./letterfall-game";
+import LetterfallApp from "./letterfall-app";
 
 export default function Home() {
-  return <LetterfallGame />;
+  return <LetterfallApp />;
 }

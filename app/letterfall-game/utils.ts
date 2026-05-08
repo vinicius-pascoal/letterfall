@@ -1,7 +1,7 @@
 import { WORD_BANK } from "./constants";
 
 export function getLevel(score: number) {
-  return Math.max(1, Math.floor(score / 120) + 1);
+  return Math.max(1, Math.floor(score / 160) + 1);
 }
 
 export function getWordPoints(word: string) {
@@ -16,12 +16,12 @@ export function getWordPoints(word: string) {
   return 30;
 }
 
-export function getWordSpeed(level: number, word: string) {
-  return 0.55 + level * 0.11 + Math.min(0.35, word.length * 0.018);
+export function getWordSpeed(level: number, word: string, speedMultiplier = 1) {
+  return (0.07 + level * 0.014 + Math.min(0.06, word.length * 0.004)) * speedMultiplier;
 }
 
-export function getSpawnInterval(level: number) {
-  return Math.max(620, 1700 - (level - 1) * 120);
+export function getSpawnInterval(level: number, spawnMultiplier = 1) {
+  return Math.max(900, (2400 - (level - 1) * 170) * spawnMultiplier);
 }
 
 export function randomWord() {

@@ -8,23 +8,28 @@ import {
   STORAGE_KEY,
   STATUS_MESSAGES,
 } from "../constants";
-import type { FeedbackState, FallingWord } from "../types";
+import { DIFFICULTIES } from "../difficulties";
+import type { DifficultyKey, FeedbackState, FallingWord } from "../types";
 import { getLevel, getSpawnInterval, getWordPoints, getWordSpeed, randomWord } from "../utils";
+
+type UseLetterfallGameParams = {
+  difficultyKey: DifficultyKey;
+};
 
 let nextWordId = 1;
 
-function createStartingWords() {
+function createStartingWords(speedMultiplier: number) {
   return INITIAL_WORDS.slice(0, STARTING_WORDS).map((word, index) => ({
     id: nextWordId++,
     text: word.text,
     x: word.x,
     y: -8 - index * 22,
-    speed: getWordSpeed(1, word.text),
+    speed: getWordSpeed(1, word.text, speedMultiplier),
     points: getWordPoints(word.text),
   }));
 }
 
-function buildWord(level: number, y: number) {
+function buildWord(level: number, y: number, speedMultiplier: number) {
   const text = randomWord();
 
   return {
@@ -32,15 +37,17 @@ function buildWord(level: number, y: number) {
     text,
     x: 8 + Math.random() * 70,
     y,
-    speed: getWordSpeed(level, text),
+    speed: getWordSpeed(level, text, speedMultiplier),
     points: getWordPoints(text),
   } satisfies FallingWord;
 }
 
-export function useLetterfallGame() {
-  const [words, setWords] = useState<FallingWord[]>(() => createStartingWords());
+export function useLetterfallGame({ difficultyKey }: UseLetterfallGameParams) {
+  const difficulty = DIFFICULTIES.find((item) => item.key === difficultyKey) ?? DIFFICULTIES[1];
+
+  const [words, setWords] = useState<FallingWord[]>(() => createStartingWords(difficulty.speedMultiplier));
   const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(START_LIVES);
+  const [lives, setLives] = useState(difficulty.startingLives);
   const [combo, setCombo] = useState(0);
   const [input, setInput] = useState("");
   const [paused, setPaused] = useState(false);
@@ -105,11 +112,11 @@ export function useLetterfallGame() {
       const level = getLevel(scoreRef.current);
       spawnTimerRef.current += delta;
 
-      const spawnInterval = getSpawnInterval(level);
+      const spawnInterval = getSpawnInterval(level, difficulty.spawnMultiplier);
 
       if (spawnTimerRef.current >= spawnInterval) {
         spawnTimerRef.current %= spawnInterval;
-        const nextWord = buildWord(level, -12);
+        const nextWord = buildWord(level, -12, difficulty.speedMultiplier);
         wordsRef.current = [...wordsRef.current, nextWord];
         setWords(wordsRef.current);
       }
@@ -185,18 +192,18 @@ export function useLetterfallGame() {
   }
 
   function resetGame() {
-    const freshWords = createStartingWords();
+    const freshWords = createStartingWords(difficulty.speedMultiplier);
 
     wordsRef.current = freshWords;
     scoreRef.current = 0;
-    livesRef.current = START_LIVES;
+    livesRef.current = difficulty.startingLives;
     comboRef.current = 0;
     spawnTimerRef.current = 0;
     lastTickRef.current = null;
 
     setWords(freshWords);
     setScore(0);
-    setLives(START_LIVES);
+    setLives(difficulty.startingLives);
     setCombo(0);
     setPaused(false);
     setGameOver(false);
@@ -234,6 +241,7 @@ export function useLetterfallGame() {
   return {
     bestScore,
     combo,
+    difficulty,
     feedback,
     gameOver,
     input,

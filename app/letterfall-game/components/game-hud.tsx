@@ -8,8 +8,10 @@ type GameHudProps = {
   combo: number;
   level: number;
   bestScore: number;
+  difficultyLabel: string;
   paused: boolean;
   onTogglePause: () => void;
+  onExitHome: () => void;
 };
 
 export function GameHud({
@@ -18,8 +20,10 @@ export function GameHud({
   combo,
   level,
   bestScore,
+  difficultyLabel,
   paused,
   onTogglePause,
+  onExitHome,
 }: GameHudProps) {
   return (
     <header className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-[rgba(148,163,184,0.14)] bg-[rgba(2,6,23,0.72)] px-4 py-3 shadow-[0_0_0_1px_rgba(0,229,255,0.04),0_20px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl sm:px-5">
@@ -32,11 +36,12 @@ export function GameHud({
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm sm:grid-cols-6 sm:gap-x-6">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm sm:grid-cols-4 lg:grid-cols-8 sm:gap-x-6">
         <Stat label="Score" value={score} />
         <Stat label="Vidas" value={lives} emphasize />
         <Stat label="Combo" value={`x${Math.max(combo, 1)}`} />
         <Stat label="Level" value={level} />
+        <Stat label="Dificuldade" value={difficultyLabel} />
         <Stat label="Best" value={bestScore} />
         <button
           type="button"
@@ -44,6 +49,13 @@ export function GameHud({
           className="rounded-full border border-[rgba(56,189,248,0.24)] px-4 py-2 font-medium text-foreground transition hover:border-[rgba(0,229,255,0.55)] hover:bg-[rgba(0,229,255,0.08)]"
         >
           {paused ? "Retomar" : "Pausar"}
+        </button>
+        <button
+          type="button"
+          onClick={onExitHome}
+          className="rounded-full border border-[rgba(148,163,184,0.18)] px-4 py-2 font-medium text-slate-200 transition hover:border-[rgba(250,204,21,0.45)] hover:bg-[rgba(250,204,21,0.08)]"
+        >
+          Menu
         </button>
       </div>
     </header>

@@ -5,10 +5,16 @@ import { GameHud } from "./letterfall-game/components/game-hud";
 import { GamePlayfield } from "./letterfall-game/components/game-playfield";
 import { useLetterfallGame } from "./letterfall-game/hooks/use-letterfall-game";
 
-export default function LetterfallGame() {
+type LetterfallGameProps = {
+  difficultyKey: import("./letterfall-game/types").DifficultyKey;
+  onExitHome: () => void;
+};
+
+export default function LetterfallGame({ difficultyKey, onExitHome }: LetterfallGameProps) {
   const {
     bestScore,
     combo,
+    difficulty,
     feedback,
     gameOver,
     input,
@@ -22,7 +28,7 @@ export default function LetterfallGame() {
     togglePause,
     words,
     level,
-  } = useLetterfallGame();
+  } = useLetterfallGame({ difficultyKey });
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
@@ -39,8 +45,10 @@ export default function LetterfallGame() {
           combo={combo}
           level={level}
           bestScore={bestScore}
+          difficultyLabel={difficulty.label}
           paused={paused}
           onTogglePause={togglePause}
+          onExitHome={onExitHome}
         />
 
         <section className="relative flex min-h-0 flex-1 flex-col rounded-4xl border border-[rgba(148,163,184,0.12)] bg-[rgba(2,6,23,0.58)] shadow-[0_0_0_1px_rgba(15,23,42,0.7),0_30px_80px_rgba(2,6,23,0.65)] backdrop-blur-xl">
@@ -58,6 +66,7 @@ export default function LetterfallGame() {
               bestScore={bestScore}
               score={score}
               onRestart={resetGame}
+              onExitHome={onExitHome}
             />
           </div>
 

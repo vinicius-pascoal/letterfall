@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { FallingWord } from "../types";
 
 type GamePlayfieldProps = {
@@ -7,6 +8,7 @@ type GamePlayfieldProps = {
   bestScore: number;
   score: number;
   onRestart: () => void;
+  onExitHome: () => void;
 };
 
 export function GamePlayfield({
@@ -16,6 +18,7 @@ export function GamePlayfield({
   bestScore,
   score,
   onRestart,
+  onExitHome,
 }: GamePlayfieldProps) {
   return (
     <div className="relative h-[58vh] min-h-96 overflow-hidden rounded-3xl border border-[rgba(148,163,184,0.12)] bg-[radial-gradient(circle_at_top,rgba(15,23,42,0.85),rgba(2,6,23,0.88))] px-3 py-3 sm:px-5 sm:py-5">
@@ -54,6 +57,13 @@ export function GamePlayfield({
             className="mt-6 rounded-full border border-[rgba(0,229,255,0.35)] bg-[rgba(0,229,255,0.08)] px-6 py-3 text-sm font-semibold text-slate-50 transition hover:border-[rgba(0,229,255,0.7)] hover:bg-[rgba(0,229,255,0.14)]"
           >
             Jogar novamente
+          </button>
+          <button
+            type="button"
+            onClick={onExitHome}
+            className="mt-3 rounded-full border border-[rgba(148,163,184,0.22)] px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-[rgba(148,163,184,0.4)] hover:bg-[rgba(148,163,184,0.08)]"
+          >
+            Voltar à home
           </button>
         </Overlay>
       ) : null}

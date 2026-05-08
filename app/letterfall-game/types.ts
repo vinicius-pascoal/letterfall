@@ -15,3 +15,16 @@ export type FeedbackState = {
 } | null;
 
 export type GameStatus = "playing" | "paused" | "gameOver";
+
+export type DifficultyKey = "casual" | "normal" | "hard" | "nightmare";
+
+export type DifficultyPreset = {
+  key: DifficultyKey;
+  label: string;
+  badge: string;
+  description: string;
+  spawningLabel: string;
+  speedMultiplier: number;
+  spawnMultiplier: number;
+  startingLives: number;
+};
