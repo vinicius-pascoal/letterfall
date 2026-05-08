@@ -1,85 +1,28 @@
 "use client";
 
-import type { ReactNode } from "react";
-
 type GameHudProps = {
-  score: number;
-  lives: number;
-  combo: number;
-  level: number;
-  bestScore: number;
-  difficultyLabel: string;
   paused: boolean;
   onTogglePause: () => void;
-  onExitHome: () => void;
 };
 
-export function GameHud({
-  score,
-  lives,
-  combo,
-  level,
-  bestScore,
-  difficultyLabel,
-  paused,
-  onTogglePause,
-  onExitHome,
-}: GameHudProps) {
+export function GameHud({ paused, onTogglePause }: GameHudProps) {
   return (
-    <header className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-[rgba(148,163,184,0.14)] bg-[rgba(2,6,23,0.72)] px-4 py-3 shadow-[0_0_0_1px_rgba(0,229,255,0.04),0_20px_60px_rgba(2,6,23,0.55)] backdrop-blur-xl sm:px-5">
+    <header className="absolute left-4 right-4 top-4 z-30 flex items-center justify-between gap-3 rounded-3xl bg-[rgba(2,6,23,0.32)] px-3 py-2 backdrop-blur-md sm:left-6 sm:right-6 sm:px-4">
       <div>
         <p className="font-(family-name:--font-orbitron) text-lg tracking-[0.3em] text-(--cyan)">
           LETTERFALL
         </p>
-        <p className="mt-1 text-sm text-slate-400">
-          Neon minimalista, foco total na digitação.
-        </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm sm:grid-cols-4 lg:grid-cols-8 sm:gap-x-6">
-        <Stat label="Score" value={score} />
-        <Stat label="Vidas" value={lives} emphasize />
-        <Stat label="Combo" value={`x${Math.max(combo, 1)}`} />
-        <Stat label="Level" value={level} />
-        <Stat label="Dificuldade" value={difficultyLabel} />
-        <Stat label="Best" value={bestScore} />
+      <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={onTogglePause}
-          className="rounded-full border border-[rgba(56,189,248,0.24)] px-4 py-2 font-medium text-foreground transition hover:border-[rgba(0,229,255,0.55)] hover:bg-[rgba(0,229,255,0.08)]"
+          className="rounded-md border border-[rgba(148,163,184,0.08)] px-3 py-1 text-sm text-slate-200"
         >
-          {paused ? "Retomar" : "Pausar"}
-        </button>
-        <button
-          type="button"
-          onClick={onExitHome}
-          className="rounded-full border border-[rgba(148,163,184,0.18)] px-4 py-2 font-medium text-slate-200 transition hover:border-[rgba(250,204,21,0.45)] hover:bg-[rgba(250,204,21,0.08)]"
-        >
-          Menu
+          {paused ? "Retomar" : "Pausa"}
         </button>
       </div>
     </header>
-  );
-}
-
-function Stat({
-  label,
-  value,
-  emphasize = false,
-}: {
-  label: string;
-  value: string | number;
-  emphasize?: boolean;
-}) {
-  return (
-    <div className="min-w-0">
-      <p className="text-[0.65rem] uppercase tracking-[0.35em] text-slate-500">{label}</p>
-      <p
-        className={`mt-1 font-(family-name:--font-orbitron) text-base tracking-[0.12em] ${emphasize ? "text-(--cyan)" : "text-slate-100"
-          }`}
-      >
-        {value}
-      </p>
-    </div>
   );
 }

@@ -7,6 +7,10 @@ type GamePlayfieldProps = {
   paused: boolean;
   bestScore: number;
   score: number;
+  lives: number;
+  combo: number;
+  difficultyLabel: string;
+  level: number;
   onRestart: () => void;
   onExitHome: () => void;
 };
@@ -17,11 +21,15 @@ export function GamePlayfield({
   paused,
   bestScore,
   score,
+  lives,
+  combo,
+  difficultyLabel,
+  level,
   onRestart,
   onExitHome,
 }: GamePlayfieldProps) {
   return (
-    <div className="relative h-[58vh] min-h-96 overflow-hidden rounded-3xl border border-[rgba(148,163,184,0.12)] bg-[radial-gradient(circle_at_top,rgba(15,23,42,0.85),rgba(2,6,23,0.88))] px-3 py-3 sm:px-5 sm:py-5">
+    <div className="absolute inset-0 overflow-hidden rounded-3xl border border-[rgba(148,163,184,0.12)] bg-cover bg-center" style={{ backgroundImage: "url('/imgs/fundoGame.png')" }}>
       {words.map((word) => (
         <div
           key={word.id}
@@ -39,6 +47,20 @@ export function GamePlayfield({
           {word.text}
         </div>
       ))}
+
+      {/* Floating left column: score, combo, lives */}
+      <aside className="pointer-events-none absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-3 sm:flex z-10">
+        <FloatStat label="Score" value={String(score)} />
+        <FloatStat label="Combo" value={`x${Math.max(1, combo)}`} />
+        <FloatStat label="Vidas" value={String(lives)} emphasize />
+      </aside>
+
+      {/* Floating right column: difficulty, level, best */}
+      <aside className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col gap-3 sm:flex z-10">
+        <FloatStat label="Dific" value={difficultyLabel} />
+        <FloatStat label="Level" value={String(level)} />
+        <FloatStat label="Best" value={String(bestScore)} />
+      </aside>
 
       {gameOver ? (
         <Overlay>
@@ -58,13 +80,7 @@ export function GamePlayfield({
           >
             Jogar novamente
           </button>
-          <button
-            type="button"
-            onClick={onExitHome}
-            className="mt-3 rounded-full border border-[rgba(148,163,184,0.22)] px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-[rgba(148,163,184,0.4)] hover:bg-[rgba(148,163,184,0.08)]"
-          >
-            Voltar à home
-          </button>
+          {/* removed overlay home button; persistent home button is available bottom-right */}
         </Overlay>
       ) : null}
 
@@ -76,10 +92,34 @@ export function GamePlayfield({
           <p className="mt-2 text-sm text-slate-300">O jogo está parado. Clique em retomar para continuar.</p>
         </Overlay>
       ) : null}
+
+      <FloatingHomeButton onExitHome={onExitHome} />
     </div>
   );
 }
 
 function Overlay({ children }: { children: ReactNode }) {
   return <div className="absolute inset-0 grid place-items-center px-4">{children}</div>;
+}
+
+function FloatStat({ label, value, emphasize = false }: { label: string; value: string; emphasize?: boolean }) {
+  return (
+    <div className={`pointer-events-auto rounded-lg border px-3 py-2 text-sm ${emphasize ? "border-[rgba(0,229,255,0.28)] bg-[rgba(0,229,255,0.04)]" : "border-[rgba(148,163,184,0.08)] bg-[rgba(2,6,23,0.36)]"}`}>
+      <p className="text-[0.6rem] uppercase tracking-[0.35em] text-slate-400">{label}</p>
+      <p className="mt-1 font-(family-name:--font-orbitron) text-base text-slate-50">{value}</p>
+    </div>
+  );
+}
+
+// Floating persistent Home button bottom-right
+function FloatingHomeButton({ onExitHome }: { onExitHome: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onExitHome}
+      className="pointer-events-auto absolute right-6 bottom-6 z-20 rounded-full border border-[rgba(148,163,184,0.12)] bg-[rgba(2,6,23,0.6)] px-4 py-2 text-sm text-slate-100 shadow-lg"
+    >
+      Home
+    </button>
+  );
 }

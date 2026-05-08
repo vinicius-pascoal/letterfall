@@ -16,8 +16,14 @@ export function LetterfallHome({
   onStartGame,
 }: LetterfallHomeProps) {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background text-foreground">
-      <div className="mx-auto w-full max-w-2xl px-6 py-20">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background text-foreground">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/imgs/fundoHome.png')" }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.55),rgba(2,6,23,0.82))]" />
+
+      <div className="relative mx-auto w-full max-w-2xl px-6 py-20">
         <header className="text-center">
           <h1 className="font-(family-name:--font-orbitron) text-5xl font-semibold tracking-[0.12em] text-(--cyan)">
             LETTERFALL
@@ -27,7 +33,7 @@ export function LetterfallHome({
           </p>
         </header>
 
-        <section className="mt-10 grid gap-3">
+        <section className="mt-10 grid gap-3 rounded-3xl border border-[rgba(148,163,184,0.12)] bg-[rgba(2,6,23,0.34)] p-4 backdrop-blur-md">
           {difficulties.map((difficulty) => {
             const active = difficulty.key === selectedDifficultyKey;
 
@@ -40,14 +46,13 @@ export function LetterfallHome({
                   onStartGame();
                 }}
                 className={`w-full rounded-2xl border px-4 py-3 text-left transition ${active
-                    ? "border-[rgba(0,229,255,0.42)] bg-[rgba(0,229,255,0.06)]"
-                    : "border-[rgba(148,163,184,0.08)] bg-[rgba(2,6,23,0.28)] hover:border-[rgba(148,163,184,0.16)]"
+                  ? "border-[rgba(0,229,255,0.42)] bg-[rgba(0,229,255,0.06)]"
+                  : "border-[rgba(148,163,184,0.08)] bg-[rgba(2,6,23,0.28)] hover:border-[rgba(148,163,184,0.16)]"
                   }`}
               >
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium text-slate-50">{difficulty.label}</p>
-                    <p className="mt-1 text-xs text-slate-400">{difficulty.description}</p>
                   </div>
                   <span className="text-xs uppercase tracking-[0.28em] text-slate-500">{difficulty.badge}</span>
                 </div>
