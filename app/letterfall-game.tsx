@@ -30,10 +30,11 @@ export default function LetterfallGame({ difficultyKey, onExitHome }: Letterfall
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-background text-foreground">
-      <section className="relative h-full w-full overflow-hidden bg-[rgba(2,6,23,0.58)] shadow-[0_0_0_1px_rgba(15,23,42,0.7)] backdrop-blur-xl">
-        <div className="pointer-events-none absolute inset-x-5 top-5 h-px bg-linear-to-r from-transparent via-[rgba(0,229,255,0.5)] to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 top-[22%] h-px bg-linear-to-r from-transparent via-[rgba(244,63,94,0.35)] to-transparent" />
-        <div className="pointer-events-none absolute inset-0 opacity-35 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-size-[100%_3rem,3rem_100%]" />
+      <section className="relative h-full w-full overflow-hidden border border-white/8 bg-[rgba(2,6,23,0.72)] shadow-[0_30px_90px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
+        <div className="pointer-events-none absolute inset-x-5 top-5 h-px bg-linear-to-r from-transparent via-[rgba(56,189,248,0.45)] to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-[22%] h-px bg-linear-to-r from-transparent via-[rgba(139,92,246,0.25)] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 opacity-25 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[100%_3rem,3rem_100%]" />
+        <GameHud paused={paused} onTogglePause={togglePause} />
         <GamePlayfield
           words={words}
           gameOver={gameOver}

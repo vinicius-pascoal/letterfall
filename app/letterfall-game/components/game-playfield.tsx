@@ -29,19 +29,21 @@ export function GamePlayfield({
   onExitHome,
 }: GamePlayfieldProps) {
   return (
-    <div className="absolute inset-0 overflow-hidden border border-[rgba(148,163,184,0.12)] bg-cover bg-center" style={{ backgroundImage: "url('/imgs/fundoGame.png')" }}>
+    <div className="absolute inset-0 overflow-hidden border border-white/8 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_30%),radial-gradient(circle_at_82%_18%,rgba(139,92,246,0.12),transparent_26%),linear-gradient(180deg,rgba(3,7,18,0.92),rgba(2,6,23,0.98))]">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[100%_4.5rem,4.5rem_100%] opacity-30" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(2,6,23,0.4)_100%)]" />
       {words.map((word) => (
         <div
           key={word.id}
-          className="absolute select-none whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-semibold tracking-[0.18em] shadow-[0_0_18px_rgba(0,229,255,0.16)] transition-transform duration-75"
+          className="absolute select-none whitespace-nowrap rounded-2xl border px-3 py-1.5 text-sm font-semibold tracking-[0.14em] shadow-[0_10px_24px_rgba(2,6,23,0.3)] transition-transform duration-75"
           style={{
             left: `${word.x}%`,
             top: `${word.y}%`,
             color: "var(--foreground)",
-            borderColor: "rgba(56,189,248,0.36)",
-            background: "rgba(2,6,23,0.55)",
-            textShadow: "0 0 14px rgba(0,229,255,0.55)",
-            boxShadow: "0 0 0 1px rgba(0,229,255,0.08), 0 0 20px rgba(139,92,246,0.14)",
+            borderColor: "rgba(56,189,248,0.3)",
+            background: "linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.58))",
+            textShadow: "0 0 12px rgba(56,189,248,0.35)",
+            boxShadow: "0 0 0 1px rgba(255,255,255,0.03), 0 0 22px rgba(139,92,246,0.12)",
           }}
         >
           {word.text}
@@ -104,8 +106,8 @@ function Overlay({ children }: { children: ReactNode }) {
 
 function FloatStat({ label, value, emphasize = false }: { label: string; value: string; emphasize?: boolean }) {
   return (
-    <div className={`pointer-events-auto rounded-lg border px-3 py-2 text-sm ${emphasize ? "border-[rgba(0,229,255,0.28)] bg-[rgba(0,229,255,0.04)]" : "border-[rgba(148,163,184,0.08)] bg-[rgba(2,6,23,0.36)]"}`}>
-      <p className="text-[0.6rem] uppercase tracking-[0.35em] text-slate-400">{label}</p>
+    <div className={`pointer-events-auto rounded-xl border px-3 py-2 text-sm shadow-[0_12px_28px_rgba(2,6,23,0.25)] ${emphasize ? "border-[rgba(56,189,248,0.3)] bg-[rgba(56,189,248,0.05)]" : "border-white/8 bg-[rgba(2,6,23,0.38)]"}`}>
+      <p className="text-[0.58rem] uppercase tracking-[0.36em] text-slate-400">{label}</p>
       <p className="mt-1 font-(family-name:--font-orbitron) text-base text-slate-50">{value}</p>
     </div>
   );
@@ -117,7 +119,7 @@ function FloatingHomeButton({ onExitHome }: { onExitHome: () => void }) {
     <button
       type="button"
       onClick={onExitHome}
-      className="pointer-events-auto absolute right-6 bottom-6 z-20 rounded-full border border-[rgba(148,163,184,0.12)] bg-[rgba(2,6,23,0.6)] px-4 py-2 text-sm text-slate-100 shadow-lg"
+      className="pointer-events-auto absolute right-6 bottom-6 z-20 rounded-full border border-white/10 bg-[rgba(2,6,23,0.68)] px-4 py-2 text-sm text-slate-100 shadow-[0_18px_36px_rgba(2,6,23,0.35)] backdrop-blur-md transition hover:border-[rgba(56,189,248,0.36)] hover:bg-[rgba(56,189,248,0.08)]"
     >
       Home
     </button>
